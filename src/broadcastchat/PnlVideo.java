@@ -9,7 +9,7 @@ package broadcastchat;
  * @author Dai
  */
 public class PnlVideo extends javax.swing.JPanel {
-
+    public MainWindow parent;
     /**
      * Creates new form PnlVideo
      */

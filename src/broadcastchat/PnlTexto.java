@@ -12,7 +12,7 @@ import javax.swing.JFrame;
  * @author Dai
  */
 public class PnlTexto extends javax.swing.JPanel {
-    
+    public MainWindow parent;
     /*public static void main(String[] args){
      * JFrame f = new JFrame();
      * PnlTexto texto = new PnlTexto();

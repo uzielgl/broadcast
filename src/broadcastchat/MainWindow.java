@@ -10,6 +10,12 @@ package broadcastchat;
  */
 public class MainWindow extends javax.swing.JFrame implements ComunicadorListener{
     Proceso proceso;
+    
+    public PnlVideo pnlVideo;
+    public PnlAudio pnlAudio;
+    public PnlTexto pnlTexto;
+    public PnlCliente pnlCliente;
+    
     /**
      * Creates new form MainWindow
      */
@@ -44,7 +50,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jSplitPane1 = new javax.swing.JSplitPane();
-        jPanel1 = new javax.swing.JPanel();
+        pnlLeft = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtHistory = new javax.swing.JTextArea();
@@ -72,12 +78,22 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         jButton3.setText("Sonido");
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton3);
 
         jButton4.setText("Texto");
@@ -95,6 +111,11 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         jButton5.setFocusable(false);
         jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton5);
 
         jToolBar2.setRollover(true);
@@ -116,20 +137,9 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
         jSplitPane1.setDividerLocation(400);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(350, 291));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 388, Short.MAX_VALUE)
-        );
-
-        jSplitPane1.setLeftComponent(jPanel1);
+        pnlLeft.setPreferredSize(new java.awt.Dimension(350, 291));
+        pnlLeft.setLayout(new java.awt.CardLayout());
+        jSplitPane1.setLeftComponent(pnlLeft);
 
         txtHistory.setColumns(20);
         txtHistory.setRows(5);
@@ -182,7 +192,35 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        pnlTexto = new PnlTexto();
+        pnlTexto.parent = this;
+        pnlLeft.add( pnlTexto );
+        pack();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        pnlVideo = new PnlVideo();
+        pnlVideo.parent = this;
+        pnlLeft.add( pnlVideo );
+        pack();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        pnlAudio = new PnlAudio();
+        pnlAudio.parent = this;
+        pnlLeft.add( pnlAudio );
+        pack();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        pnlCliente = new PnlCliente();
+        pnlCliente.parent = this;
+        pnlLeft.add( pnlCliente );
+        pack();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     //@override
     public void onReceiveMessage(Mensaje m){
@@ -241,13 +279,13 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToolBar jToolBar2;
+    private javax.swing.JPanel pnlLeft;
     private javax.swing.JTextArea txtHistory;
     // End of variables declaration//GEN-END:variables
 }
