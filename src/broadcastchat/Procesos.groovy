@@ -40,7 +40,6 @@ class Procesos{
     public int getPosById( int id ){
         int ret = -1;
         for( int c=0 ; c < size() ; c++) if( id == procesos[c].id ) return c
-        
         return ret;
     }
 }

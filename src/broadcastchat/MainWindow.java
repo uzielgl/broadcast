@@ -271,6 +271,11 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         
     }
     
+    public void addHistory(String msg){
+        jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getMaximum());
+        this.txtHistory.append(msg + "\n");
+    }
+    
     /**
      * @param args the command line arguments
      */

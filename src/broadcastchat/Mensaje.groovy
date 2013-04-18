@@ -24,6 +24,9 @@ class Mensaje implements Serializable{
     //Para videos
     public Image img;
     
+    //
+    public estructura = []; //La estructura del mensaje del vt y demás
+    
     public Mensaje( int tipo){
         this.tipo = tipo;
     }
@@ -36,7 +39,8 @@ class Mensaje implements Serializable{
         def mensaje = [
             "from" : from.toString(),
             "to" : to.toString(),
-            "tipo" : tipo
+            "tipo" : tipo,
+            "estructura" : estructura
         ];
         return new Gson().toJson( mensaje );
     }
