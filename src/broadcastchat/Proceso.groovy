@@ -76,7 +76,7 @@ class Proceso implements ComunicadorListener{
         if( m.tipo == Mensaje.TIPO_DESCUBRIMIENTO ){
             if ( procesos.add( m.from ) )
                 VT.add(0);
-            if( this.id == m.from.id ){
+            if( this.id == m.from.id && pos == null){
                 pos = procesos.size() - 1;
             }
             window.addHistory("Peers", procesos.procesos.toString() );
