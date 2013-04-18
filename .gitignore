@@ -8,3 +8,5 @@
 /dist/
 /build/
 *.properties
+
+/nbproject/private/private.properties
