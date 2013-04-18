@@ -23,11 +23,11 @@ import javax.swing.JPanel;
 public class Video extends Thread{
     private String dispositivo = "vfw:Microsoft WDM Image Capture (Win32):0";
     private Player player = null;
-    public ArrayList<BasicProceso> procesos;
+    public Procesos procesos;
     public Comunicador comunicador;
     public boolean continuar = true;
     
-    Proceso proceso; //Es el que tiene VT y demas CI, 
+    public Proceso proceso; //Es el que tiene VT y demas CI, 
     
     public Component Componente(){
     Component componente_video;
@@ -85,7 +85,8 @@ public class Video extends Thread{
     }
     
     public void enviarImagenAProcesos(){
-        for(BasicProceso p: this.procesos){
+        
+        for(BasicProceso p: procesos.procesos ){
             Mensaje m = proceso.crearMensaje();
             m.img = capturarImagen();
             comunicador.sendMessage( p, m);

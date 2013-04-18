@@ -80,28 +80,7 @@ class Proceso implements ComunicadorListener{
         
     }
     
-    /** Manejara todos los procesos */
-    private class Procesos{
-        public ArrayList<BasicProceso> procesos = new ArrayList<BasicProceso>();
-        
-        public void add( BasicProceso proceso){
-            //Está el proceso ? 
-            boolean esta = false;
-            for( BasicProceso p: procesos ){
-                if( p.id == proceso.id ){
-                    esta = true;
-                    break;
-                }
-            }
-            if( !esta )
-                this.procesos.add( proceso );
-        }
-        
-        public Proceso getById( int id ){
-            for( BasicProceso p: procesos ) if( p.id == id ) return p;
-            return null;
-        }
-    }
+   
     
 }
 
