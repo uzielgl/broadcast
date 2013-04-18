@@ -5,6 +5,8 @@
 
 package broadcastchat
 import com.google.gson.Gson;
+import java.io.*;
+import java.awt.*;
 /**
  *
  * @author uzielgl
@@ -18,6 +20,9 @@ class Mensaje implements Serializable{
     
     public BasicProceso from;
     public BasicProceso to;
+    
+    //Para videos
+    public Image img;
     
     public Mensaje( int tipo){
         this.tipo = tipo;

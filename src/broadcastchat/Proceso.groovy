@@ -17,7 +17,9 @@ class Proceso implements ComunicadorListener{
     public Comunicador comunicador;
     public MainWindow window;
     
-    Procesos procesos = new Procesos();
+    public Procesos procesos = new Procesos();
+    
+    public Video video = new Video();
     
     public Proceso(){
         ip = Util.getLocalIp();
@@ -28,6 +30,8 @@ class Proceso implements ComunicadorListener{
         comunicador = new Comunicador( ip, port ); //El constructor levanta el servidor
         comunicador.proceso = this;
         comunicador.udpServer.listeners.add(this);
+        
+        video.comunicador = comunicador;
     }
     
     public Proceso(String ip, int port){ //Un constructor sencillo para poder tener una lista de procesos
@@ -46,11 +50,32 @@ class Proceso implements ComunicadorListener{
         return new Gson().toJson( props );
     }
     
+    //Crea un mensaje pegandole el historial causal y otras cosas
+    public Mensaje crearMensaje(){
+        Mensaje m = new Mensaje();
+        
+        //Aqui le agrego el ci y lo necesario m.ci = tal cosa
+        return m;
+    }
+    
     //@override
     public void onReceiveMessage(Mensaje m){
         if( m.tipo == Mensaje.TIPO_DESCUBRIMIENTO ){
             procesos.add( m.from );
             window.addHistory("Peers", procesos.toString() );
+        }else{
+            procesarMensaje( m );
+        }
+    }
+    
+    //Lo puede enviar a la cola o lo puede entregar
+    public procesarMensaje( Mensaje m ){
+        
+    }
+    
+    public void entregarMensaje( Mensaje m){
+        if( m.tipo == Mensaje.TIPO_VIDEO){
+            video.showVideo( m )
         }
         
     }
@@ -76,7 +101,6 @@ class Proceso implements ComunicadorListener{
             for( BasicProceso p: procesos ) if( p.id == id ) return p;
             return null;
         }
-   
     }
     
 }

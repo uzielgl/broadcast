@@ -37,6 +37,13 @@ class Comunicador {
         udpClient.sendMenssage( p.ip, p.port, m );
     }
     
+    /**
+     * Sólo se enviarán objectos "Mensaje".
+     */ ///
+    public sendMessage(BasicProceso p, Mensaje m){
+        udpClient.sendMenssage( p.ip, p.port, m );
+    }
+    
      /** Inicia el servidor del proceso*/
     public void start(){
         udpServer = new UDPServer(ip, port);

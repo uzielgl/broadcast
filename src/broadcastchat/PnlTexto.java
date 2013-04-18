@@ -71,7 +71,7 @@ public class PnlTexto extends javax.swing.JPanel {
         );
         pnlEnviarTextoLayout.setVerticalGroup(
             pnlEnviarTextoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         lblRecibiendoAudio.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -131,7 +131,7 @@ public class PnlTexto extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRecibiendoAudio;
     private javax.swing.JPanel pnlEnviarTexto;
-    private javax.swing.JPanel pnlRecepcionVideo;
+    public javax.swing.JPanel pnlRecepcionVideo;
     private javax.swing.JTextArea txtEnviarTexto;
     // End of variables declaration//GEN-END:variables
 }

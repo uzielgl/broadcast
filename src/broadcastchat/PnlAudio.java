@@ -111,7 +111,7 @@ public class PnlAudio extends javax.swing.JPanel {
     private javax.swing.JButton btnEnviarAudio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlHistorial;
-    private javax.swing.JPanel pnlRecepcionVideo;
+    public javax.swing.JPanel pnlRecepcionVideo;
     private javax.swing.JTextArea txtHistorial;
     // End of variables declaration//GEN-END:variables
 }
