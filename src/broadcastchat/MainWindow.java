@@ -21,9 +21,23 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
      */
     public MainWindow() {
         initComponents();
+        
+        
         proceso = new Proceso(); 
         proceso.comunicador.udpServer.listeners.add(this);
         proceso.window = this;
+        
+        jLabel3.setText( Integer.toString( proceso.id ) );
+    }
+    
+    public MainWindow( int id, String ip, int port ) {
+        initComponents();
+        
+        proceso = new Proceso(id, ip, port); 
+        proceso.comunicador.udpServer.listeners.add(this);
+        proceso.window = this;
+        
+        jLabel3.setText( Integer.toString( proceso.id ) );
     }
 
     /**
@@ -36,6 +50,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
@@ -58,6 +73,17 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jToolBar1.setRollover(true);
+
+        jButton6.setText("Local");
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton6);
 
         jButton1.setText("Que me descubran");
         jButton1.setFocusable(false);
@@ -226,6 +252,11 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         pack();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        proceso.comunicador.sendDiscoveryMessage("127.0.0.1");
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     //@override
     public void onReceiveMessage(Mensaje m){
         addHistory("Recibiendo mensaje", m.toString() );
@@ -233,8 +264,11 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
     }
     
     public void addHistory(String title, String msg){
+        jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getMaximum());
         this.txtHistory.append("----------" + title + "----------------" + "\n");
         this.txtHistory.append(msg + "\n");
+        
+        
     }
     
     /**
@@ -277,6 +311,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

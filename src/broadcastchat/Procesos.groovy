@@ -13,7 +13,7 @@ package broadcastchat
 class Procesos{
     public ArrayList<BasicProceso> procesos = new ArrayList<BasicProceso>();
 
-    public void add( BasicProceso proceso){
+    public boolean add( BasicProceso proceso){
         //Está el proceso ? 
         boolean esta = false;
         for( BasicProceso p: procesos ){
@@ -24,6 +24,7 @@ class Procesos{
         }
         if( !esta )
             this.procesos.add( proceso );
+        return !esta;
     }
 
     public Proceso getById( int id ){

@@ -41,11 +41,13 @@ class Proceso implements ComunicadorListener{
         video.comunicador = comunicador;
     }
     
-    public Proceso(String ip, int port){ //Un constructor sencillo para poder tener una lista de procesos
-        ip = Util.getLocalIp();
-        String[] exp = ip.split("\\.");
-        id = Integer.parseInt( exp[3] );
-        port = id + 3000;
+    public Proceso(int id, String ip, int port){ //Un constructor sencillo para poder tener una lista de procesos
+        this.id = id;
+        comunicador = new Comunicador( ip, port ); //El constructor levanta el servidor
+        comunicador.proceso = this;
+        comunicador.udpServer.listeners.add(this);
+        
+        video.comunicador = comunicador;
     }
     
     public String toString(){
@@ -72,12 +74,12 @@ class Proceso implements ComunicadorListener{
     //@override
     public void onReceiveMessage(Mensaje m){
         if( m.tipo == Mensaje.TIPO_DESCUBRIMIENTO ){
-            procesos.add( m.from );
-            VT.add(0);
+            if ( procesos.add( m.from ) )
+                VT.add(0);
             if( this.id == m.from.id ){
                 pos = procesos.size() - 1;
             }
-            window.addHistory("Peers", procesos.toString() );
+            window.addHistory("Peers", procesos.procesos.toString() );
             window.addHistory("YO", this.toString());
         }else{
             procesarMensaje( m );

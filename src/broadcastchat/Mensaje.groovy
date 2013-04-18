@@ -22,7 +22,7 @@ class Mensaje implements Serializable{
     public BasicProceso to;
     
     //Para videos
-    public Image img;
+    //public Image img;
     
     public Mensaje( int tipo){
         this.tipo = tipo;
