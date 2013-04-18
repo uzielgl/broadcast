@@ -21,6 +21,13 @@ class Proceso implements ComunicadorListener{
     
     public Video video = new Video();
     
+    public int pos; //Define la posicíón que tiene este vector en el vt
+    public VT = [];
+    public hm = [];
+    public ci = [];
+    
+    public cola_mensajes = []; 
+    
     public Proceso(){
         ip = Util.getLocalIp();
         String[] exp = ip.split("\\.");
@@ -45,7 +52,11 @@ class Proceso implements ComunicadorListener{
         def props = [
             "id" : id,
             "ip" : ip,
-            "port" : port
+            "port" : port,
+            "pos" : pos,
+            "VT" : VT,
+            "hm" : hm,
+            "ci" : ci
         ]
         return new Gson().toJson( props );
     }
@@ -62,7 +73,12 @@ class Proceso implements ComunicadorListener{
     public void onReceiveMessage(Mensaje m){
         if( m.tipo == Mensaje.TIPO_DESCUBRIMIENTO ){
             procesos.add( m.from );
+            VT.add(0);
+            if( this.id == m.from.id ){
+                pos = procesos.size() - 1;
+            }
             window.addHistory("Peers", procesos.toString() );
+            window.addHistory("YO", this.toString());
         }else{
             procesarMensaje( m );
         }

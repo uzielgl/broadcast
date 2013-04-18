@@ -30,4 +30,8 @@ class Procesos{
         for( BasicProceso p: procesos ) if( p.id == id ) return p;
         return null;
     }
+    
+    public int size(){
+        return this.procesos.size();
+    }
 }
