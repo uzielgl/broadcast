@@ -21,7 +21,7 @@ class Proceso implements ComunicadorListener{
     
     public Video video = new Video();
     
-    public int pos; //Define la posicíón que tiene este vector en el vt
+    public int pos = -1; //Define la posicíón que tiene este vector en el vt
     public VT = [];
     public hm = [];
     public ci = [];
@@ -43,6 +43,8 @@ class Proceso implements ComunicadorListener{
     
     public Proceso(int id, String ip, int port){ //Un constructor sencillo para poder tener una lista de procesos
         this.id = id;
+        this.ip = ip;
+        this.port = port;
         comunicador = new Comunicador( ip, port ); //El constructor levanta el servidor
         comunicador.proceso = this;
         comunicador.udpServer.listeners.add(this);
@@ -76,7 +78,10 @@ class Proceso implements ComunicadorListener{
         if( m.tipo == Mensaje.TIPO_DESCUBRIMIENTO ){
             if ( procesos.add( m.from ) )
                 VT.add(0);
-            if( this.id == m.from.id && pos == null){
+            println "this.id " + this.id + this.id.getClass();
+            println "form.id" + m.from.id + m.from.id.getClass();
+            if( this.id == m.from.id && pos == -1){
+                println "Entra aquí "
                 pos = procesos.size() - 1;
             }
             window.addHistory("Peers", procesos.procesos.toString() );

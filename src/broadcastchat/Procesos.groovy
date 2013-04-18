@@ -35,4 +35,12 @@ class Procesos{
     public int size(){
         return this.procesos.size();
     }
+    
+    /** Obtiene la posición de un proceso, si no está, regresa -1*/
+    public int getPosById( int id ){
+        int ret = -1;
+        for( int c=0 ; c < size() ; c++) if( id == procesos[c].id ) return c
+        
+        return ret;
+    }
 }
