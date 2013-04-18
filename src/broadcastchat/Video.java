@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import javax.media.control.FrameGrabbingControl;
 import javax.media.format.VideoFormat;
 import javax.media.util.BufferToImage;
+import javax.swing.Icon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 /**
@@ -97,16 +99,28 @@ public class Video extends Thread{
         System.out.println("Agregando imagen al panel");
         
         if( proceso.window.pnlAudio != null){
+            JLabel lblImg = new JLabel("");
+            lblImg.setIcon((Icon) i);
+            proceso.window.pnlAudio.pnlRecepcionVideo.add(lblImg);
+            lblImg.setVisible(true);
             //Agregar la imagen al pnl ese
-            //proceso.window.pnlAudio.pnlRecepcionVideo.add( i. );
+           // proceso.window.pnlAudio.pnlRecepcionVideo.set
         }
         
         if( proceso.window.pnlTexto != null){
+            JLabel lblImg = new JLabel("");
+            lblImg.setIcon((Icon) i);
+            proceso.window.pnlTexto.pnlRecepcionVideo.add(lblImg);
+            lblImg.setVisible(true);
             //Agregar la imagen al pnl ese
             //proceso.window.pnlAudio.pnlRecepcionVideo.add( i. );
         }
         
         if( proceso.window.pnlCliente != null){
+            JLabel lblImg = new JLabel("");
+            lblImg.setIcon((Icon) i);
+            proceso.window.pnlCliente.pnlRecepcionVideo.add(lblImg);
+            lblImg.setVisible(true);
             //Agregar la imagen al pnl ese
             //proceso.window.pnlAudio.pnlRecepcionVideo.add( i. );
         }
