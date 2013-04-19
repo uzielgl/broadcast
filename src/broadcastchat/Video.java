@@ -34,6 +34,8 @@ public class Video extends Thread{
     
     public Proceso proceso; //Es el que tiene VT y demas CI, 
     
+    public int i = 0;
+    
     public Component Componente(){
     Component componente_video;
         try {
@@ -65,6 +67,7 @@ public class Video extends Thread{
     
     
     public byte[] capturarImagen(int c){
+        i++;
         Image img=null;
         FrameGrabbingControl fgc = (FrameGrabbingControl)
         player.getControl("javax.media.control.FrameGrabbingControl");
@@ -74,8 +77,13 @@ public class Video extends Thread{
         BufferToImage btoi = new BufferToImage((VideoFormat)buf.getFormat());
         img = btoi.createImage(buf);
         
-        File file = new File("C:/Users/Uziel/Desktop/video/theimage"+c+".jpg");
-        /* ImageIO.write(img, "jpg", file);*/
+        
+        File file = new File("C:/Users/Uziel/Desktop/video/theimage"+i+".jpg");
+        try {
+            ImageIO.write((RenderedImage)img, "jpg", file);
+        } catch (IOException ex) {
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
          String formato = "JPEG";
          /*// byte[] imageInByte;
           * try{
@@ -104,6 +112,8 @@ public class Video extends Thread{
         
        
     }
+    
+    
     
     public void iniciarVideo(){
         try{

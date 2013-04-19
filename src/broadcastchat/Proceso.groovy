@@ -5,6 +5,10 @@
 
 package broadcastchat
 import com.google.gson.Gson;
+import java.awt.Image
+import javax.swing.JLabel
+import javax.swing.ImageIcon
+import javax.swing.Icon
 /**
  *
  * @author uzielgl
@@ -167,7 +171,11 @@ class Proceso implements ComunicadorListener{
         
         if( m.tipo == Mensaje.TIPO_VIDEO){
             println "debo de mostrar video en panel"
-            //video.showVideo( m, proceso );
+            ImageIcon i = new ImageIcon( m.img );
+            JLabel lblImg = new JLabel("");
+            lblImg.setIcon( i ) ;
+            pnl.pnlRecepcionVideo.add(lblImg);
+            lblImg.setVisible(true);
         }else if( m.tipo == Mensaje.TIPO_TEXTO){
             texto.showTexto( m, pnl );
         }
