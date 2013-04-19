@@ -94,7 +94,7 @@ class Proceso implements ComunicadorListener{
     public difundirMensaje( Mensaje m ){
         m.from = new BasicProceso( this );
         
-        window.addHistory("Mensaje a difunder", m.toString());
+        //window.addHistory("Mensaje a difunder", m.toString());
         for( BasicProceso p: procesos.procesos ){
             if( p.id != id){
                 comunicador.udpClient.sendMessage(p.ip, p.port, m );
@@ -121,7 +121,7 @@ class Proceso implements ComunicadorListener{
     }
     
     //Lo puede enviar a la cola o lo puede entregar
-    public procesarMensaje( Mensaje message ){
+    public  procesarMensaje( Mensaje message ){
         if( message == null) return true;
         window.addHistory("Recibiendo mensaje", message.toString() );
         int k = message.estructura[0];
@@ -129,7 +129,7 @@ class Proceso implements ComunicadorListener{
         def hm = message.estructura[2];
         
         if( ! ( ( tk == (VT[ k ] + 1 ) ) && isCausal(VT, hm) ) ){ //Aquí duda con el +1 preguntar
-            println "wait... Encolar el mensaje y con cada recepción intentar entregarlo (llamar a esta misma función)";
+            //println "wait... Encolar el mensaje y con cada recepción intentar entregarlo (llamar a esta misma función)";
             window.addHistory("Esperando mensaje de p" + ( k + 1) );
             addColaMensaje( message );
             return false;
@@ -152,17 +152,20 @@ class Proceso implements ComunicadorListener{
     }
     
     /** Pone a null el mensaje que se le pasa de la cola de mensajes*/
-    public eliminaDeCola(message){
+    public synchronized eliminaDeCola(message){
         for( def x = 0 ; x< cola_mensajes.size(); x++ ){
             def m = cola_mensajes[x];
             if( m == null ) continue;
-            if( m[0] == message[0] && m[1] == message[1] )
+            println "antes $m"
+            if( m.estructura[0] == message.estructura[0] && m.estructura[1] == message.estructura[1] )
                 cola_mensajes[x] = null;
         }
     }
     
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+    
     public void entregarMensaje( Mensaje m){
-        window.addHistory( "Entregando mensaje", m.toString() );
+        //window.addHistory( "Entregando mensaje", m.toString() );
         def pnl;
         //Dependiendo del tipo mandamos una u otra ventana
         if( window.tipo == MainWindow.TIPO_TEXTO){
@@ -189,25 +192,48 @@ class Proceso implements ComunicadorListener{
             texto.showTexto( m, pnl );
         }
         else if(m.tipo == Mensaje.TIPO_AUDIO){
-            
+            AudioFormat format = new AudioFormat(16000.0F, 16, 1, true, false);
+            try {
+                System.out.println("Listening for incoming sound");
+                DataLine.Info speakerInfo = new DataLine.Info(SourceDataLine.class, format);
+                SourceDataLine speaker = (SourceDataLine) AudioSystem.getLine(speakerInfo);
+                speaker.open(format);
+                speaker.start();                
+               
+                    byte[] data = m.audio;
+                    //baos.reset();
+                    ByteArrayInputStream bais = new ByteArrayInputStream(data);
+                    AudioInputStream ais = new AudioInputStream(bais,format,data.length);
+                    int numBytesRead = 0;
+                    if ((numBytesRead = ais.read(data)) != -1) speaker.write(data, 0, numBytesRead);
+                    ais.close();
+                    bais.close();
+                
+                speaker.drain();
+                speaker.close();
+                System.out.println("Stopped listening for incoming sound");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            /*
             AudioFormat format = new AudioFormat(8000.0F, 16, 1, true, false);
             //reproducir Audio
             ByteArrayInputStream oInstream = new ByteArrayInputStream(m.audio);
             AudioInputStream oAIS = AudioSystem.getAudioInputStream(oInstream, format, m.audio.length );
             try{
-        //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
-        Clip clip = AudioSystem.getClip();
-        clip.open(oInstream);
-        clip.start();
-        }catch(Exception ex){
-                System.out.println("Error with playing sound.");
-                ex.printStackTrace();
-        }
+            //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(oInstream);
+            clip.start();
+            }catch(Exception ex){
+                    System.out.println("Error with playing sound.");
+                    ex.printStackTrace();
+            }*/
         }
     }
     
     /** Ingresa mensajes no repetidos a la cola*/
-    public addColaMensaje( message ){
+    public synchronized addColaMensaje( message ){
         Iterator it = cola_mensajes.iterator();
         def add = true;
         while( it.hasNext() ){

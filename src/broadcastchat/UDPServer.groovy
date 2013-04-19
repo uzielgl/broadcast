@@ -43,7 +43,7 @@ public class UDPServer extends Thread{
             try{ 
                 System.out.println("Levantando servidor en " + ip + " " + " puerto " + port);
                 while(true){
-                    byte[] buffer = new byte[80000];
+                    byte[] buffer = new byte[30000];
                     DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                     aSocket.receive(request);
 
@@ -78,12 +78,14 @@ public class UDPServer extends Thread{
         t3.start();
         Thread t4 = new Thread(new ServerSocketThread());
         t4.start();
-        Thread t5 = new Thread(new ServerSocketThread());
+        /*Thread t5 = new Thread(new ServerSocketThread());
         t5.start();
         Thread t6 = new Thread(new ServerSocketThread());
         t6.start();
         Thread t7 = new Thread(new ServerSocketThread());
         t7.start();
+        Thread t8 = new Thread(new ServerSocketThread());
+        t8.start();*/
     }
     
     public void stopServer(){

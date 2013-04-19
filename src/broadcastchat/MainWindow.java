@@ -280,7 +280,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
     //@override
     public void onReceiveMessage(Mensaje m){
-        addHistory("Recibiendo mensaje", m.toString() );
+        //addHistory("Recibiendo mensaje", m.toString() );
         
     }
     
