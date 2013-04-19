@@ -12,7 +12,7 @@ package broadcastchat
 class Texto extends Thread{
     public PnlTexto pnlTexto;
     public Proceso proceso;
-    public int c = 0;
+    public int c = 0;   
     
     public void run(){
         while(true){
