@@ -16,7 +16,7 @@ public class PnlCliente extends javax.swing.JPanel {
     public PnlCliente() {
         initComponents();
                  jScrollPane1.getVerticalScrollBar().setValue(jScrollPane1.getVerticalScrollBar().getMaximum());
-
+     
     }
 
     /**

@@ -174,7 +174,10 @@ class Proceso implements ComunicadorListener{
             ImageIcon i = new ImageIcon( m.img );
             JLabel lblImg = new JLabel("");
             lblImg.setIcon( i ) ;
-            pnl.pnlRecepcionVideo.add(lblImg);
+            pnl.pnlRecepcionVideo.add(lblImg, 0);
+            try{
+                pnl.pnlRecepcionVideo.remove(1);
+            }catch( Exception e){}
             lblImg.setVisible(true);
         }else if( m.tipo == Mensaje.TIPO_TEXTO){
             texto.showTexto( m, pnl );
