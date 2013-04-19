@@ -31,7 +31,7 @@ public class PnlVideo extends javax.swing.JPanel {
         btnEnviarVideo = new javax.swing.JButton();
         pnlHistorial = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtHistorial = new javax.swing.JTextArea();
+        txtRecepcionTexto = new javax.swing.JTextArea();
         lblRecibiendoAudio = new javax.swing.JLabel();
 
         btnEnviarVideo.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -44,9 +44,9 @@ public class PnlVideo extends javax.swing.JPanel {
 
         pnlHistorial.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Recepción Texto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
-        txtHistorial.setColumns(20);
-        txtHistorial.setRows(5);
-        jScrollPane1.setViewportView(txtHistorial);
+        txtRecepcionTexto.setColumns(20);
+        txtRecepcionTexto.setRows(5);
+        jScrollPane1.setViewportView(txtRecepcionTexto);
 
         javax.swing.GroupLayout pnlHistorialLayout = new javax.swing.GroupLayout(pnlHistorial);
         pnlHistorial.setLayout(pnlHistorialLayout);
@@ -102,6 +102,6 @@ public class PnlVideo extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblRecibiendoAudio;
     private javax.swing.JPanel pnlHistorial;
-    private javax.swing.JTextArea txtHistorial;
+    public javax.swing.JTextArea txtRecepcionTexto;
     // End of variables declaration//GEN-END:variables
 }
