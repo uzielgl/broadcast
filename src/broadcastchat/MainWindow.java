@@ -232,6 +232,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         proceso.video.procesos = proceso.procesos;
         proceso.video.Componente();
         
+        
         pnlLeft.add( pnlVideo );
         pack();
     }//GEN-LAST:event_jButton2ActionPerformed

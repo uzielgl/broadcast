@@ -9,8 +9,10 @@ import javax.media.*;
 import javax.media.cdm.CaptureDeviceManager;
 import java.io.*;
 import java.awt.*;
+import java.awt.image.RenderedImage;
 import java.util.ArrayList;
 import java.util.logging.Level;
+import javax.imageio.ImageIO;
 import javax.media.control.FrameGrabbingControl;
 import javax.media.format.VideoFormat;
 import javax.media.util.BufferToImage;
@@ -36,7 +38,7 @@ public class Video extends Thread{
         try {
             //obtenemos el dispositivo;
             CaptureDeviceInfo device = CaptureDeviceManager.getDevice(dispositivo);
-            MediaLocator localizador = device.getLocator();
+            MediaLocator localizador = new MediaLocator("vfw://0");
             player = Manager.createRealizedPlayer(localizador);
             player.start();
         }
@@ -61,7 +63,7 @@ public class Video extends Thread{
     }
     
     
-    public Image capturarImagen(){
+    public Image capturarImagen(int c){
         Image img=null;
         FrameGrabbingControl fgc = (FrameGrabbingControl)
         player.getControl("javax.media.control.FrameGrabbingControl");
@@ -69,8 +71,35 @@ public class Video extends Thread{
         // creamos la imagen awt
         BufferToImage btoi = new BufferToImage((VideoFormat)buf.getFormat());
         img = btoi.createImage(buf);
+        File file = new File("C:/Users/Uziel/Desktop/video/theimage"+c+".jpg");
+        /* ImageIO.write(img, "jpg", file);*/
+         String formato = "JPEG";
+                 try{
+                   ImageIO.write((RenderedImage) img,formato,file);
+                }catch (IOException ioe){System.out.println("Error al guardar la imagen");}
         return img;
+        
+        
     }
+    
+    public void iniciarVideo(){
+        try{
+        CaptureDeviceInfo device = CaptureDeviceManager.getDevice(dispositivo);
+        MediaLocator localizador = new MediaLocator("vfw://0");
+        player = Manager.createRealizedPlayer(localizador);
+        player.start();
+        }
+        catch(IOException ex){
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(NoPlayerException ex){
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(CannotRealizeException ex){
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     
     public void run(){
         while( true ){
@@ -87,11 +116,15 @@ public class Video extends Thread{
     }
     
     public void enviarImagenAProcesos(){
-        
+        int cont = 1;
+        Mensaje m = proceso.crearMensaje();
+        m.img = capturarImagen(cont);
         for(BasicProceso p: procesos.procesos ){
-            Mensaje m = proceso.crearMensaje();
-            m.img = capturarImagen();
-            comunicador.sendMessage( p, m);
+            
+            if(proceso.id != p.id){
+            cont++;
+            comunicador.udpClient.sendMessage( p.ip, p.port, m);
+            }
         }
     }
     
