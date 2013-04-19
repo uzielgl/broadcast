@@ -78,7 +78,7 @@ public class PnlTexto extends javax.swing.JPanel {
         lblRecibiendoAudio.setText("Recibiendo Audio");
 
         btnEnviarTexto.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnEnviarTexto.setText("Enviar Texto");
+        btnEnviarTexto.setText("Iniciar Envio de texto");
         btnEnviarTexto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnviarTextoActionPerformed(evt);
@@ -123,7 +123,8 @@ public class PnlTexto extends javax.swing.JPanel {
 
     private void btnEnviarTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarTextoActionPerformed
         // TODO add your handling code here:
-        txtEnviarTexto.append("Texto, texto, texto, texto, texto, texto\n");
+        Texto texto = new Texto();
+        texto.iniciarEnvio( this );
     }//GEN-LAST:event_btnEnviarTextoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

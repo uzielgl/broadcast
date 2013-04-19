@@ -79,10 +79,10 @@ class Proceso implements ComunicadorListener{
     }
     
     //Envia el mensaje a todos los demás procesos. EL mensajhe creado en crearMensaje
-    public enviarMensaje( Mensaje m ){
+    public difundirMensaje( Mensaje m ){
         for( BasicProceso p: procesos.procesos ){
             if( p.id != id){
-                comunicador.sendMessage( p );
+                comunicador.sendMessage( p, m );
             }
         }
     }
