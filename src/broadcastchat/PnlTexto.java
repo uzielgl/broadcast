@@ -123,10 +123,9 @@ public class PnlTexto extends javax.swing.JPanel {
 
     private void btnEnviarTextoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarTextoActionPerformed
         // TODO add your handling code here:
-        Texto texto = new Texto();
-        texto.pnlTexto = this;
-        texto.proceso = parent.proceso;
-        texto.iniciarEnvio( );
+        parent.proceso.texto.pnlTexto = this;
+        parent.proceso.texto.proceso = parent.proceso;
+        parent.proceso.texto.iniciarEnvio( );
     }//GEN-LAST:event_btnEnviarTextoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

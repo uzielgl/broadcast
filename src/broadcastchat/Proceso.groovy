@@ -20,6 +20,7 @@ class Proceso implements ComunicadorListener{
     public Procesos procesos = new Procesos();
     
     public Video video = new Video();
+    public Texto texto = new Texto();
     
     public int pos = -1; //Define la posicíón que tiene este vector en el vt
     public VT = [];
