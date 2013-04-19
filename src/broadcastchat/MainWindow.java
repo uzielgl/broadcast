@@ -11,11 +11,17 @@ package broadcastchat;
 public class MainWindow extends javax.swing.JFrame implements ComunicadorListener{
     public Proceso proceso;
     
-    public PnlVideo pnlVideo;
-    public PnlAudio pnlAudio;
-    public PnlTexto pnlTexto;
-    public PnlCliente pnlCliente;
+    public PnlVideo pnlVideo = null;
+    public PnlAudio pnlAudio = null;
+    public PnlTexto pnlTexto = null;
+    public PnlCliente pnlCliente = null;
     
+    public static final int TIPO_AUDIO = 1;
+    public static final int TIPO_VIDEO = 2;
+    public static final int TIPO_TEXTO = 3;
+    public static final int TIPO_CLIENTE = 4;
+    
+    public int tipo;
     /**
      * Creates new form MainWindow
      */
@@ -218,14 +224,22 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        tipo = MainWindow.TIPO_TEXTO;
+        
         pnlTexto = new PnlTexto();
         pnlTexto.parent = this;
+
+        proceso.texto.proceso = proceso;
+        proceso.texto.proceso.window = this;
+        
         pnlLeft.add( pnlTexto );
         pack();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        tipo = MainWindow.TIPO_VIDEO;
+        
         pnlVideo = new PnlVideo();
         pnlVideo.parent = this;
         proceso.video.proceso = proceso;
@@ -239,6 +253,8 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        tipo = MainWindow.TIPO_AUDIO;
+        
         pnlAudio = new PnlAudio();
         pnlAudio.parent = this;
         pnlLeft.add( pnlAudio );
@@ -247,6 +263,8 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        tipo = MainWindow.TIPO_CLIENTE;
+        
         pnlCliente = new PnlCliente();
         pnlCliente.parent = this;
         pnlLeft.add( pnlCliente );

@@ -21,6 +21,8 @@ class Proceso implements ComunicadorListener{
     
     public Video video = new Video();
     public Texto texto = new Texto();
+    public Audio audio = new Audio();
+    
     
     public int pos = -1; //Define la posicíón que tiene este vector en el vt
     public VT = [];
@@ -68,6 +70,7 @@ class Proceso implements ComunicadorListener{
     
     //Crea un mensaje pegandole el historial causal y otras cosas
     public Mensaje crearMensaje(){
+        VT[ pos ]++;
         Mensaje m = new Mensaje();
         hm = ci;
         m.estructura = [ pos, VT[pos], hm ];
@@ -117,8 +120,8 @@ class Proceso implements ComunicadorListener{
         
         if( ! ( ( tk == (VT[ k ] + 1 ) ) && isCausal(VT, hm) ) ){ //Aquí duda con el +1 preguntar
             println "wait... Encolar el mensaje y con cada recepción intentar entregarlo (llamar a esta misma función)";
-            addColaMensaje( message );
             window.addHistory("Esperando mensaje de p" + ( k + 1) );
+            addColaMensaje( message );
             return false;
         }else{
             VT[ k ] ++;
@@ -126,12 +129,12 @@ class Proceso implements ComunicadorListener{
             ci.add( [k, tk] );
             ci = deleteHmCi( hm, ci );
             
-            entregarMensaje( m );
+            entregarMensaje( message );
             eliminaDeCola( message );
             
             for( def x = 0 ; x< cola_mensajes.size(); x++ ){
                 def m = cola_mensajes[x];
-                procesarMensaje( m );
+                procesarMensaje( message );
             }
             
             return true;
@@ -149,9 +152,23 @@ class Proceso implements ComunicadorListener{
     }
     
     public void entregarMensaje( Mensaje m){
-        window.addHistory( "Recibiendo mensaje", m.toString() );
+        window.addHistory( "Entregando mensaje", m.toString() );
+        def pnl;
+        //Dependiendo del tipo mandamos una u otra ventana
+        if( window.tipo == MainWindow.TIPO_TEXTO){
+            pnl = window.pnlTexto;
+        }else if( window.tipo == MainWindow.TIPO_AUDIO){
+            pnl = window.pnlAudio;
+        }else if( window.tipo == MainWindow.TIPO_VIDEO){
+            pnl = window.pnlVideo
+        }else if( window.tipo == MainWindow.TIPO_CLIENTE){
+            pnl = window.pnlCliente;
+        }
+        
         if( m.tipo == Mensaje.TIPO_VIDEO){
-            video.showVideo( m )
+            //video.showVideo( m, proceso );
+        }else if( m.tipo == Mensaje.TIPO_TEXTO){
+            texto.showTexto( m, pnl );
         }
     }
     

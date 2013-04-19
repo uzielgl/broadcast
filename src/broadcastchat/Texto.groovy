@@ -14,8 +14,14 @@ class Texto extends Thread{
     public Proceso proceso;
     public int c = 0;   
     
+    public boolean continuar = true;
     public void run(){
         while(true){
+            
+            if( !continuar ){
+                continue;
+            }
+            
             String texto = Integer.toString(c) + " Cadena de texto a enviar";
             pnlTexto.txtEnviarTexto.append(texto + "\n");
             Mensaje m = proceso.crearMensaje();
@@ -37,5 +43,23 @@ class Texto extends Thread{
         this.start();
     }
     
+    public void showTexto( Mensaje m, pnl ){
+        pnl.txtRecepcionTexto.append( m.texto + "\n" );
+        
+        /*
+        if( proceso.window.tipo == MainWindow.TIPO_CLIENTE  ){
+            proceso.window.pnlCliente.txtRecepcionTexto.append( m.texto );
+        }else if( proceso.window.tipo == MainWindow.TIPO_AUDIO ){
+            proceso.window.pnlAudio.txtRecepcionTexto.append( m.texto );
+        } */
+    }
+    
+    public void detenerEnvio(){
+        continuar = false;
+    }
+    
+    public void continuarEnvio(){
+        continuar = true;
+    }
 }
         
