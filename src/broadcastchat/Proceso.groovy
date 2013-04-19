@@ -11,6 +11,8 @@ import javax.swing.ImageIcon
 import javax.swing.Icon
 import javax.sound.sampled.AudioInputStream
 import javax.sound.sampled.Clip
+
+import javax.sound.sampled.*;
 /**
  *
  * @author uzielgl
@@ -187,9 +189,11 @@ class Proceso implements ComunicadorListener{
             texto.showTexto( m, pnl );
         }
         else if(m.tipo == Mensaje.TIPO_AUDIO){
+            
+            AudioFormat format = new AudioFormat(8000.0F, 16, 1, true, false);
             //reproducir Audio
             ByteArrayInputStream oInstream = new ByteArrayInputStream(m.audio);
-            AudioInputStream oAIS = AudioSystem.getAudioInputStream(oInstream);
+            AudioInputStream oAIS = AudioSystem.getAudioInputStream(oInstream, format, m.audio.length );
             try{
         //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
         Clip clip = AudioSystem.getClip();

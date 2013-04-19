@@ -24,7 +24,7 @@ class Mensaje implements Serializable{
     //Para videos
     public byte[] img;
     public String texto;
-    public byte[] audio; //Debe de ser un arreglo de bytes
+    public byte[] audio = null; //Debe de ser un arreglo de bytes
     
     //
     public estructura = []; //La estructura del mensaje del vt y demás

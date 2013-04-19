@@ -35,6 +35,8 @@ private AudioFormat format;
 public String ip;// ip usadada en el datagramPacket
 public Proceso proceso;
 
+    ByteArrayOutputStream buffStream = new ByteArrayOutputStream();
+
 
 private DatagramSocket datagramSocket(){
     try {
@@ -50,8 +52,9 @@ private void startMic() {
         DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
         mic = (TargetDataLine) AudioSystem.getLine(info);
         mic.open(format);
+        buffer = new byte[mic.getBufferSize() / 5 ]; ///
         mic.start();
-        buffer = new byte[1024];
+        //buffer = new byte[1024];
     } catch (LineUnavailableException ex) {
        //s Logger.getLogger(Audio.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -83,9 +86,9 @@ private void send() {
 
 @Override
 public void run() {
-    player = createPlayer();
-    player.start();
-    socket = datagramSocket();
+    //player = createPlayer();
+    //player.start();
+    //socket = datagramSocket();
     transmitting = true;
     startMic();
     while (transmitting) {
@@ -96,7 +99,11 @@ public void run() {
 private byte[] obtenerBuffer() {
     //starMic();
     try {
-        mic.read(buffer, 0, 1024);
+        //mic.read(buffer, 0, 1024);
+        byte[] buffer = new byte[mic.getBufferSize() / 5 ]; ///
+        
+        
+        
         /*DatagramPacket packet = 
             new DatagramPacket(
                buffer, buffer.length, InetAddress.getByName(ip), 91);
@@ -110,10 +117,16 @@ private byte[] obtenerBuffer() {
 }
 
 public void enviarAudioAProcesos(){
-        Mensaje m = proceso.crearMensaje();
-        m.audio = obtenerBuffer();
-        m.tipo = Mensaje.TIPO_AUDIO;
-        proceso.difundirMensaje(m);
+    
+    int count = mic.read(buffer, 0, buffer.length);
+    if( count > 0 ) this.buffStream.write(buffer, 0, count);
+    //mic.drain();
+    //mic.close(); 
+
+    Mensaje m = proceso.crearMensaje();
+    m.audio = buffer;
+    m.tipo = Mensaje.TIPO_AUDIO;
+    proceso.difundirMensaje(m);
     }
 	
 }
