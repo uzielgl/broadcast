@@ -30,7 +30,7 @@ private DatagramSocket socket;
 private boolean transmitting;
 private Player player;
 TargetDataLine mic;
-byte[] buffer;
+public byte[] buffer;
 private AudioFormat format;
 public String ip;// ip usadada en el datagramPacket
 public Proceso proceso;
@@ -89,11 +89,12 @@ public void run() {
     transmitting = true;
     startMic();
     while (transmitting) {
-       enviarAudioAprocesos();
+       enviarAudioAProcesos();
     }  
 }
 
 private byte[] obtenerBuffer() {
+    //starMic();
     try {
         mic.read(buffer, 0, 1024);
         /*DatagramPacket packet = 
@@ -101,6 +102,8 @@ private byte[] obtenerBuffer() {
                buffer, buffer.length, InetAddress.getByName(ip), 91);
         socket.send(packet);*/
     } catch (IOException ex) {
+        println "error obtenerBuffer"
+        println ex.getMessage()
         //Logger.getLogger(Audio.class.getName()).log(Level.SEVERE, null, ex);
     }
     return buffer;
