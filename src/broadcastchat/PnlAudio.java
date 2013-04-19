@@ -105,6 +105,7 @@ public class PnlAudio extends javax.swing.JPanel {
 
     private void btnEnviarAudioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarAudioActionPerformed
         // TODO add your handling code here:
+       parent.proceso.audio.start();
     }//GEN-LAST:event_btnEnviarAudioActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

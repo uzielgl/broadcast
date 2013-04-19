@@ -253,11 +253,14 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         tipo = MainWindow.TIPO_AUDIO;
-        
         pnlAudio = new PnlAudio();
         pnlAudio.parent = this;
+        proceso.audio.proceso = proceso;
+        //proceso.audio.s
         pnlLeft.add( pnlAudio );
         pack();
+        
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

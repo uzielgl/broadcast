@@ -9,6 +9,8 @@ import java.awt.Image
 import javax.swing.JLabel
 import javax.swing.ImageIcon
 import javax.swing.Icon
+import javax.sound.sampled.AudioInputStream
+import javax.sound.sampled.Clip
 /**
  *
  * @author uzielgl
@@ -26,6 +28,8 @@ class Proceso implements ComunicadorListener{
     public Video video = new Video();
     public Texto texto = new Texto();
     public Audio audio = new Audio();
+    
+    
     
     
     public int pos = -1; //Define la posicíón que tiene este vector en el vt
@@ -181,6 +185,20 @@ class Proceso implements ComunicadorListener{
             lblImg.setVisible(true);
         }else if( m.tipo == Mensaje.TIPO_TEXTO){
             texto.showTexto( m, pnl );
+        }
+        else if(m.tipo == Mensaje.TIPO_AUDIO){
+            //reproducir Audio
+            ByteArrayInputStream oInstream = new ByteArrayInputStream(m.audio);
+            AudioInputStream oAIS = AudioSystem.getAudioInputStream(oInstream);
+            try{
+        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
+        Clip clip = AudioSystem.getClip();
+        clip.open(audioInputStream);
+        clip.start();
+        }catch(Exception ex){
+                System.out.println("Error with playing sound.");
+                ex.printStackTrace();
+        }
         }
     }
     
