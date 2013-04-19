@@ -34,6 +34,7 @@ class Comunicador {
      * Sólo se enviarán objectos "Mensaje".
      */ ///
     public sendMessage(Proceso p, Mensaje m){
+        println "en proceso";
         udpClient.sendMenssage( p.ip, p.port, m );
     }
     
@@ -41,6 +42,13 @@ class Comunicador {
      * Sólo se enviarán objectos "Mensaje".
      */ ///
     public sendMessage(BasicProceso p, Mensaje m){
+        int i = 2;
+        println "en basci proceso"
+        println "proceso "  + p
+        println "ip " + p.ip + " " + p.ip.getClass();
+        println "port " + p.port + " " + p.port.getClass();
+        println i.getClass();
+        println m.getClass();
         udpClient.sendMenssage( p.ip, p.port, m );
     }
     

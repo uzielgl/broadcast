@@ -11,14 +11,14 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 
-public class UDPServer extends Thread{
+public class _UDPServer extends Thread{
     private String ip;
     private String port;
     public List<ComunicadorListener> listeners = new ArrayList<ComunicadorListener>();
     
     DatagramSocket aSocket;
     
-    UDPServer( String ip, String port ){
+    _UDPServer( String ip, String port ){
         this.ip = ip;
         this.port = port;
         
@@ -27,7 +27,7 @@ public class UDPServer extends Thread{
         }catch (SocketException e){System.out.println("Socket: " + e.getMessage());
         }
     }
-    UDPServer( String ip, int port){
+    _UDPServer( String ip, int port){
         this.ip = ip;
         this.port = Integer.toString( port );  
         

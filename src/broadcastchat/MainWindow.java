@@ -9,7 +9,7 @@ package broadcastchat;
  * @author uzielgl
  */
 public class MainWindow extends javax.swing.JFrame implements ComunicadorListener{
-    Proceso proceso;
+    public Proceso proceso;
     
     public PnlVideo pnlVideo;
     public PnlAudio pnlAudio;

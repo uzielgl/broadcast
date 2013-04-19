@@ -51,7 +51,7 @@ public class UDPClient {
             System.out.println("IO: " + e.getMessage());
         }
     }
-    
+      
     public Mensaje sendMessageReply(String ip, int port, Mensaje m){
         //Lo convertimos a bytes
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();

@@ -71,8 +71,6 @@ class Proceso implements ComunicadorListener{
         hm = ci;
         m.estructura = [ pos, VT[pos], hm ];
         ci = [];
-        
-        window.addHistory("Mensaje a enviar", m.toString());
               
         //Aqui le agrego el ci y lo necesario m.ci = tal cosa
         return m;
@@ -80,9 +78,12 @@ class Proceso implements ComunicadorListener{
     
     //Envia el mensaje a todos los demás procesos. EL mensajhe creado en crearMensaje
     public difundirMensaje( Mensaje m ){
+        m.from = new BasicProceso( this );
+        
+        window.addHistory("Mensaje a difunder", m.toString());
         for( BasicProceso p: procesos.procesos ){
             if( p.id != id){
-                comunicador.sendMessage( p, m );
+                comunicador.udpClient.sendMessage(p.ip, p.port, m );
             }
         }
     }
@@ -111,15 +112,15 @@ class Proceso implements ComunicadorListener{
         window.addHistory("Recibiendo mensaje", message.toString() );
         int k = message.estructura[0];
         int tk = message.estructura[1];
-        int hm = message.estructura[2];
+        def hm = message.estructura[2];
         
-        if( ! ( ( tk == ( vt[ k ] + 1 ) ) && isCausal(vt, hm) ) ){ //Aquí duda con el +1 preguntar
+        if( ! ( ( tk == (VT[ k ] + 1 ) ) && isCausal(VT, hm) ) ){ //Aquí duda con el +1 preguntar
             println "wait... Encolar el mensaje y con cada recepción intentar entregarlo (llamar a esta misma función)";
             addColaMensaje( message );
             window.addHistory("Esperando mensaje de p" + ( k + 1) );
             return false;
         }else{
-            vt[ k ] ++;
+            VT[ k ] ++;
             ci = deleteKS( k, ci);
             ci.add( [k, tk] );
             ci = deleteHmCi( hm, ci );
