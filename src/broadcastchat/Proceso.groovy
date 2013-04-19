@@ -191,9 +191,9 @@ class Proceso implements ComunicadorListener{
             ByteArrayInputStream oInstream = new ByteArrayInputStream(m.audio);
             AudioInputStream oAIS = AudioSystem.getAudioInputStream(oInstream);
             try{
-        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
+        //AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("smb_stomp.wav").getAbsoluteFile());
         Clip clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
+        clip.open(oInstream);
         clip.start();
         }catch(Exception ex){
                 System.out.println("Error with playing sound.");
