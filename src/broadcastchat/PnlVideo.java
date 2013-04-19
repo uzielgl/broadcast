@@ -93,7 +93,7 @@ public class PnlVideo extends javax.swing.JPanel {
 
     private void btnEnviarVideoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarVideoActionPerformed
         // TODO add your handling code here:
-        parent.proceso.video.iniciarVideo();
+        //parent.proceso.video.iniciarVideo();
         parent.proceso.video.start();
     }//GEN-LAST:event_btnEnviarVideoActionPerformed
 
