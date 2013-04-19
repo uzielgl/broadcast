@@ -119,13 +119,8 @@ public class Video extends Thread{
         int cont = 1;
         Mensaje m = proceso.crearMensaje();
         m.img = capturarImagen(cont);
-        for(BasicProceso p: procesos.procesos ){
-            
-            if(proceso.id != p.id){
-            cont++;
-            comunicador.udpClient.sendMessage( p.ip, p.port, m);
-            }
-        }
+        m.tipo = Mensaje.TIPO_VIDEO;
+        proceso.difundirMensaje( m );
     }
     
     public void showVideo(Image i){
