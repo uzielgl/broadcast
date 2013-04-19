@@ -29,7 +29,6 @@ import javax.swing.JPanel;
 public class Video extends Thread{
     private String dispositivo = "vfw:Microsoft WDM Image Capture (Win32):0";
     private Player player = null;
-    public Procesos procesos;
     public Comunicador comunicador;
     public boolean continuar = true;
     

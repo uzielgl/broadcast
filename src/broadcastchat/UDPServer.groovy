@@ -43,7 +43,7 @@ public class UDPServer extends Thread{
             try{ 
                 System.out.println("Levantando servidor en " + ip + " " + " puerto " + port);
                 while(true){
-                    byte[] buffer = new byte[1000];
+                    byte[] buffer = new byte[35000];
                     DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                     aSocket.receive(request);
 
@@ -53,6 +53,8 @@ public class UDPServer extends Thread{
                     try{
                         mensaje = (Mensaje) ois.readObject();
                     }catch( Exception e){
+                        println "Error en deserializar el mensaje:"
+                        print e.getMessage();
                         e.printStackTrace();
                     }
 

@@ -166,6 +166,7 @@ class Proceso implements ComunicadorListener{
         }
         
         if( m.tipo == Mensaje.TIPO_VIDEO){
+            println "debo de mostrar video en panel"
             //video.showVideo( m, proceso );
         }else if( m.tipo == Mensaje.TIPO_TEXTO){
             texto.showTexto( m, pnl );

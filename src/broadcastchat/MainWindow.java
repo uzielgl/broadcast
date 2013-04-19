@@ -243,8 +243,7 @@ public class MainWindow extends javax.swing.JFrame implements ComunicadorListene
         pnlVideo = new PnlVideo();
         pnlVideo.parent = this;
         proceso.video.proceso = proceso;
-        proceso.video.procesos = proceso.procesos;
-        proceso.video.Componente();
+        proceso.video.iniciarVideo();
         
         
         pnlLeft.add( pnlVideo );
