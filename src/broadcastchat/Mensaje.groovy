@@ -22,7 +22,7 @@ class Mensaje implements Serializable{
     public BasicProceso to;
     
     //Para videos
-    public Image img;
+    public byte[] img;
     public String texto;
     public audio = []; //Debe de ser un arreglo de bytes
     

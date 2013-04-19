@@ -9,6 +9,7 @@ import javax.media.*;
 import javax.media.cdm.CaptureDeviceManager;
 import java.io.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -17,6 +18,7 @@ import javax.media.control.FrameGrabbingControl;
 import javax.media.format.VideoFormat;
 import javax.media.util.BufferToImage;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -63,23 +65,45 @@ public class Video extends Thread{
     }
     
     
-    public Image capturarImagen(int c){
+    public byte[] capturarImagen(int c){
         Image img=null;
         FrameGrabbingControl fgc = (FrameGrabbingControl)
         player.getControl("javax.media.control.FrameGrabbingControl");
         Buffer buf = fgc.grabFrame();
+        
         // creamos la imagen awt
         BufferToImage btoi = new BufferToImage((VideoFormat)buf.getFormat());
         img = btoi.createImage(buf);
+        
         File file = new File("C:/Users/Uziel/Desktop/video/theimage"+c+".jpg");
         /* ImageIO.write(img, "jpg", file);*/
          String formato = "JPEG";
-                 try{
-                   ImageIO.write((RenderedImage) img,formato,file);
-                }catch (IOException ioe){System.out.println("Error al guardar la imagen");}
-        return img;
+         /*// byte[] imageInByte;
+          * try{
+          * 
+          * ImageIO.write((RenderedImage) img,formato,file);
+          * 
+          * }catch (IOException ioe){System.out.println("Error al guardar la imagen");}*/
+                // File fnew=new File("/tmp/rose.jpg");
+                BufferedImage originalImage = null;
+        try {
+            originalImage = ImageIO.read(file);
+        } catch (IOException ex) {
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        try {
+            ImageIO.write(originalImage, "jpg", baos );
+        } catch (IOException ex) {
+            Logger.getLogger(Video.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                byte[] imageInByte=baos.toByteArray();
+
+
+    //return Toolkit.getDefaultToolkit().createImage(img.getSource());
+        return imageInByte;
         
-        
+       
     }
     
     public void iniciarVideo(){
@@ -104,6 +128,8 @@ public class Video extends Thread{
     public void run(){
         while( true ){
             while( continuar ){
+                
+                System.out.println("entra al run");
                 enviarImagenAProcesos();
                 
                 try{
@@ -118,14 +144,20 @@ public class Video extends Thread{
     public void enviarImagenAProcesos(){
         int cont = 1;
         Mensaje m = proceso.crearMensaje();
+        //File fnew = new File(image);
         m.img = capturarImagen(cont);
         m.tipo = Mensaje.TIPO_VIDEO;
+        System.out.println("mensaje video: "+m);
         proceso.difundirMensaje( m );
     }
     
-    public void showVideo(Image i){
+   
+    
+    public void showVideo(byte[] bytesImage){
         System.out.println("Agregando imagen al panel");
-        
+        Image i = new ImageIcon(bytesImage).getImage();
+       
+        System.out.println("entra a ShowVideo, img: "+i);
         if( proceso.window.pnlAudio != null){
             JLabel lblImg = new JLabel("");
             lblImg.setIcon((Icon) i);
