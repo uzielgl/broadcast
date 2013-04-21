@@ -32,7 +32,10 @@ public class UDPClient {
             System.out.print(" Error en el udpclient");
             System.out.println( e.getMessage() );
         }
-            
+    }
+    
+    public void sendMessage( Mensaje m ){
+        sendMessage( "", 0, m);
     }
       
     public void sendMessage(String ip, int port, Mensaje m){

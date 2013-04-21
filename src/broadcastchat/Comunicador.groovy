@@ -66,20 +66,16 @@ class Comunicador {
     
     /** Envía un mensaje de "Aquí estoy " a todos los demás procesos */
     public void sendDiscoveryMessage(){
-        for(int c = 0; c<255; c++){
-            Mensaje m = new Mensaje( Mensaje.TIPO_DESCUBRIMIENTO );
-            m.from = new BasicProceso( proceso );
-            this.udpClient.sendMessage( subnet + Integer.toString(c), 3000 + c,  m);
-        }
+        Mensaje m = new Mensaje( Mensaje.TIPO_DESCUBRIMIENTO );
+        m.from = new BasicProceso( proceso );
+        this.udpClient.sendMessage( m);
     }
     
     /** Envía un mensaje de "Aquí estoy " a todos los demás procesos */
     public void sendDiscoveryMessage( String ip ){
-        for(int c = 0; c<255; c++){
-            Mensaje m = new Mensaje( Mensaje.TIPO_DESCUBRIMIENTO );
-            m.from = new BasicProceso( proceso );
-            this.udpClient.sendMessage( ip, 3000 + c,  m);
-        }
+        Mensaje m = new Mensaje( Mensaje.TIPO_DESCUBRIMIENTO );
+        m.from = new BasicProceso( proceso );
+        this.udpClient.sendMessage( m);
     }
 	
 }
