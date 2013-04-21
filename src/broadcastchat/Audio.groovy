@@ -93,7 +93,7 @@ public void run() {
     startMic();
     while (transmitting) {
        enviarAudioAProcesos();
-       sleep(10);
+       //sleep(10);
     }  
 }
 

@@ -91,8 +91,8 @@ public class UDPClient {
         
         //Y se enviamos ese arreglo en el datagrama
         try{
-            DatagramSocket aSocket = new DatagramSocket();   
-            aSocket.setSoTimeout( 500 );
+            aSocket = new MulticastSocket(port);   
+            //aSocket.setSoTimeout( 500 );
             DatagramPacket messageOut = new DatagramPacket(messageBytes, messageBytes.length, 
                InetAddress.getByName(ip), port);
             aSocket.send( messageOut );

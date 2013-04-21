@@ -54,7 +54,7 @@ public class UDPServer extends Thread{
                     byte[] buffer = new byte[30000];
                     DatagramPacket request = new DatagramPacket(buffer, buffer.length);
                     aSocket.receive(request);
-
+                   // aSocket.leaveGroup(InetAddress.getByName(ip));
                     //Deserializamos el objeto
                     ByteArrayInputStream objIn = new ByteArrayInputStream( request.getData() );
                     ObjectInputStream ois = new ObjectInputStream( objIn );
