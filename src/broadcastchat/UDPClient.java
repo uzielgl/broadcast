@@ -92,7 +92,7 @@ public class UDPClient {
         //Y se enviamos ese arreglo en el datagrama
         try{
             aSocket = new MulticastSocket(port);   
-            //aSocket.setSoTimeout( 500 );
+            aSocket.setSoTimeout( 500 );
             DatagramPacket messageOut = new DatagramPacket(messageBytes, messageBytes.length, 
                InetAddress.getByName(ip), port);
             aSocket.send( messageOut );
@@ -112,7 +112,7 @@ public class UDPClient {
                 response_message = mensaje;
             }catch( Exception e){
             }
-            aSocket.close();
+            //aSocket.close();
             
             System.out.println( m );
         }catch (SocketException e){

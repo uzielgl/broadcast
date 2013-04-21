@@ -111,18 +111,19 @@ class Proceso implements ComunicadorListener{
             window.addHistory("YO", this.toString());
         }else{ //Este mensaje es de audio, video, texto, y se debe de procesar
             if( m.from.id != id ) procesarMensaje( m );
+           // Thread.sleep(30);
         }
     }
     
     //Lo puede enviar a la cola o lo puede entregar
     public  procesarMensaje( Mensaje message ){
         if( message == null) return true;
-        //window.addHistory("Recibiendo mensaje", message.toString() );
+        window.addHistory("Recibiendo mensaje", message.toString() );
         int k = message.estructura[0];
         int tk = message.estructura[1];
         def hm = message.estructura[2];
         
-        if( ! ( ( tk == (VT[ k ] + 1 ) ) && isCausal(VT, hm) ) ){ //Aquí duda con el +1 preguntar
+        if( ! ( ( tk == (VT[ k ] + 1 ) ) && isCausal(VT, hm)) ){ //Aquí duda con el +1 preguntar
             //println "wait... Encolar el mensaje y con cada recepción intentar entregarlo (llamar a esta misma función)";
             window.addHistory("Esperando mensaje de p" + ( k + 1) );
             addColaMensaje( message );
@@ -133,8 +134,8 @@ class Proceso implements ComunicadorListener{
             ci.add( [k, tk] );
             ci = deleteHmCi( hm, ci );
             
-            entregarMensaje( message );
             eliminaDeCola( message );
+            entregarMensaje( message );
             
             for( def x = 0 ; x< cola_mensajes.size(); x++ ){
                 def m = cola_mensajes[x];
