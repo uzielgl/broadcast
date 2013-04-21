@@ -117,7 +117,7 @@ class Proceso implements ComunicadorListener{
     //Lo puede enviar a la cola o lo puede entregar
     public  procesarMensaje( Mensaje message ){
         if( message == null) return true;
-        window.addHistory("Recibiendo mensaje", message.toString() );
+        //window.addHistory("Recibiendo mensaje", message.toString() );
         int k = message.estructura[0];
         int tk = message.estructura[1];
         def hm = message.estructura[2];

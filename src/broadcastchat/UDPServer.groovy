@@ -80,14 +80,14 @@ public class UDPServer extends Thread{
     public void run(){
         Thread t = new Thread(new ServerSocketThread());
         t.start();
-        /*
+        
         Thread t2 = new Thread(new ServerSocketThread());
         t2.start();
         Thread t3 = new Thread(new ServerSocketThread());
         t3.start();
         Thread t4 = new Thread(new ServerSocketThread());
         t4.start();
-        */
+        
         /*Thread t5 = new Thread(new ServerSocketThread());
         t5.start();
         Thread t6 = new Thread(new ServerSocketThread());
